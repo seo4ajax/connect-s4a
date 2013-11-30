@@ -1,0 +1,17 @@
+{
+  "name": "connect-s4a",
+  "version": "0.0.1",
+  "author": "SEO4Ajax",
+  "description": "SEO4Ajax middleware for Connect.",
+  "dependencies": {
+    "request" : "2.27.x"
+  },
+  "main" : "./index.js",
+  "engines": {
+    "node": "0.10.x"
+  },
+    "devDependencies": {
+    "connect": "2.x",
+    "nodeunit": "0.8.x"
+  }
+}
