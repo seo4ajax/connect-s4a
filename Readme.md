@@ -10,6 +10,7 @@ Usage
 This middleware must be on the first called.
 
 With connect :
+
     var connect_s4a = require('connect-s4a');
     var token = "your site token on SEO4Ajax";
     var connect = require('connect');
@@ -21,6 +22,7 @@ With connect :
     app.listen(3000);
     
 With express :
+
     var connect_s4a = require('connect-s4a');
     var token = "your site token on SEO4Ajax";
     var express = require('express');
@@ -36,9 +38,9 @@ Connect-s4a take only one parameter, the token of the site on SE04Ajax.
 
 Installation
 ------------
+Via npm (currently not available):
 
     $ npm install connect-s4a
-
 
 How it works
 ------------
