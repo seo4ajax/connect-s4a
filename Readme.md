@@ -38,7 +38,7 @@ Connect-s4a take only one parameter, the token of the site on SE04Ajax.
 
 Installation
 ------------
-Via npm (currently not available):
+Via npm :
 
     $ npm install connect-s4a
 
