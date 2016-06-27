@@ -11,9 +11,9 @@
             "email": "yannick@seo4ajax.com"
         }
     ],
-    "description": "SEO4Ajax middleware for Connect.",
+    "description": "Connect/Express middleware for SEO4Ajax to serve SEO friendly HTML snapshots.",
     "keywords": ["AngularJS","Backbone.js","Ember","seo","Ajax"],
-    "homepage": "http://www.seo4ajax.com",
+    "homepage": "https://www.seo4ajax.com",
     "bugs": "https://github.com/seo4ajax/connect-s4a/issues",
     "dependencies": {
         "request": "2.27.x"
