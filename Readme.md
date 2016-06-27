@@ -4,7 +4,7 @@ Connect-s4a
 [SEO4Ajax](https://www.seo4ajax.com) is a service that let you get full visibility on search engines, social networks and display advertising of any AJAX website based on Angular, React, Backbone, Ember, jQuery etc.
 
 Connect-s4a is a middleware for Connect framework. It provides an easy way to
-proxify GET requests from non-js clients to [SEO4Ajax](https://www.seo4ajax.com).
+proxify GET requests from non-js clients (e.g. crawlers) to [SEO4Ajax](https://www.seo4ajax.com).
 
 Usage
 -----
