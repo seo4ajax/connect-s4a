@@ -203,7 +203,7 @@ exports["urls filtered by user-agent properly proxified"] = {
                 test.ok(false, 'the request is in error : ' + err);
                 test.done();
             } else {
-                test.equals(body, 'connect server', 'the request should have been answered by the app server');
+                test.equals(body, '/' + s4aToken + path, 'the request should have been answered by the s4a api server');
                 test.done();
             }
         });
@@ -588,7 +588,7 @@ exports["urls filtered by user-agent properly proxified"] = {
             }
         });
     }
-	
+
 };
 
 exports['header properly sent'] = {
@@ -651,7 +651,7 @@ exports['header properly sent'] = {
                 test.done();
             } else {
                 jsonBody = JSON.parse(body);
-                test.equals(jsonBody['x-forwarded-for'], '127.0.0.1', 'the x-forwarded-for header has not been added');
+                test.ok(jsonBody['x-forwarded-for'].indexOf('127.0.0.1') != -1, 'the x-forwarded-for header has not been added');
                 test.done();
             }
         });
@@ -672,7 +672,7 @@ exports['header properly sent'] = {
             } else {
                 jsonBody = JSON.parse(body);
                 xForwardedFor = jsonBody['x-forwarded-for'].split(', ');
-                test.equals(xForwardedFor[0], '127.0.0.1', 'the x-forwarded-for header has not been properly modified');
+                test.ok(xForwardedFor[0].indexOf('127.0.0.1') != -1, 'the x-forwarded-for header has not been properly modified');
                 test.equals(xForwardedFor[1], '10.0.0.2', 'the x-forwarded-for header has not been properly modified');
                 test.equals(xForwardedFor[2], '10.0.0.1', 'the x-forwarded-for header has not been properly modified');
                 test.done();
