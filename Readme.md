@@ -29,7 +29,7 @@ With express :
     var token = "your site token on SEO4Ajax";
     var express = require('express');
     var app = express.createServer();
-    app.use(connect-s4a(token));
+    app.use(connect_s4a(token));
     app.get('/', function(req, res){
         res.send('hello world');
     });
