@@ -23,12 +23,24 @@ With connect :
     });
     app.listen(3000);
 
-With express :
+With express 3.x:
 
     var connect_s4a = require('connect-s4a');
     var token = "your site token on SEO4Ajax";
     var express = require('express');
     var app = express.createServer();
+    app.use(connect_s4a(token));
+    app.get('/', function(req, res){
+        res.send('hello world');
+    });
+    app.listen(3000);
+
+With express 4.x:
+
+    var connect_s4a = require('connect-s4a');
+    var token = "your site token on SEO4Ajax";
+    var express = require('express');
+    var app = express();
     app.use(connect_s4a(token));
     app.get('/', function(req, res){
         res.send('hello world');
