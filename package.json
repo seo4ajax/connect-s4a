@@ -24,7 +24,8 @@
     },
     "devDependencies": {
         "connect": "2.x",
-        "nodeunit": "0.11.x"
+        "nodeunit": "0.11.x",
+        "express": "4.x"
     },
     "repository": {
         "type": "git",

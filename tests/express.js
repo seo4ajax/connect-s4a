@@ -1,6 +1,6 @@
 var connect_s4a = require('../lib/connect-s4a.js');
 var s4aToken = 'token';
-var connect = require('connect');
+var express = require('express');
 var request = require('request');
 var url = require('url');
 
@@ -10,7 +10,7 @@ var url = require('url');
 
 exports["_escaped_fragment_ urls properly proxified"] = {
     setUp: function (ready) {
-        var s4aAPI = connect();
+        var s4aAPI = express();
         s4aAPI.use(function (req, res) {
             var path = url.parse(req.url).path;
             res.setHeader('Server', 'api');
@@ -18,22 +18,22 @@ exports["_escaped_fragment_ urls properly proxified"] = {
         });
         this.apiServer = s4aAPI.listen(3001);
 
-        var app = connect();
+        var app = express();
         app.use(connect_s4a(s4aToken, {
             apiEndPoint: 'http://localhost:3001/'
         }));
         app.use(function (req, res) {
             res.setHeader('Server', 'app');
-            res.end('connect server');
+            res.end('express server');
         });
-        this.connectServer = app.listen(3000);
+        this.expressServer = app.listen(3000);
 
         ready();
     },
     tearDown: function (done) {
         var self = this;
         self.apiServer.close(function () {
-            self.connectServer.close(function () {
+            self.expressServer.close(function () {
                 done();
             });
         });
@@ -47,7 +47,7 @@ exports["_escaped_fragment_ urls properly proxified"] = {
                 test.ok(false, 'the request is in error : ' + err);
                 test.done();
             } else {
-                test.equals(body, 'connect server', 'the request should have been answered by the app server');
+                test.equals(body, 'express server', 'the request should have been answered by the app server');
                 test.done();
             }
         });
@@ -140,7 +140,7 @@ exports["_escaped_fragment_ urls properly proxified"] = {
 
 exports["urls filtered by user-agent properly proxified"] = {
     setUp: function (ready) {
-        var s4aAPI = connect();
+        var s4aAPI = express();
         s4aAPI.use(function (req, res) {
             var path = url.parse(req.url).path;
             res.setHeader('Server', 'api');
@@ -148,22 +148,22 @@ exports["urls filtered by user-agent properly proxified"] = {
         });
         this.apiServer = s4aAPI.listen(3001);
 
-        var app = connect();
+        var app = express();
         app.use(connect_s4a(s4aToken, {
             apiEndPoint: 'http://localhost:3001/'
         }));
         app.use(function (req, res) {
             res.setHeader('Server', 'app');
-            res.end('connect server');
+            res.end('express server');
         });
-        this.connectServer = app.listen(3000);
+        this.expressServer = app.listen(3000);
 
         ready();
     },
     tearDown: function (done) {
         var self = this;
         self.apiServer.close(function () {
-            self.connectServer.close(function () {
+            self.expressServer.close(function () {
                 done();
             });
         });
@@ -171,19 +171,19 @@ exports["urls filtered by user-agent properly proxified"] = {
     'Google bot': function (test) {
         var path = '/path/subpath';
         var uri = 'http://localhost:3000' + path;
-		var requestObj = {
-			uri: uri,
-			headers: {
-        		'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
-    		}
-		};
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+            }
+        };
         test.expect(1);
         request.get(requestObj, function (err, resp, body) {
             if (err) {
                 test.ok(false, 'the request is in error : ' + err);
                 test.done();
             } else {
-                test.equals(body, 'connect server', 'the request should have been answered by the app server');
+                test.equals(body, 'express server', 'the request should have been answered by the app server');
                 test.done();
             }
         });
@@ -191,12 +191,12 @@ exports["urls filtered by user-agent properly proxified"] = {
     'Bing bot': function (test) {
         var path = '/path/subpath';
         var uri = 'http://localhost:3000' + path;
-		var requestObj = {
-			uri: uri,
-			headers: {
-        		'User-Agent': 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'
-    		}
-		};
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'
+            }
+        };
         test.expect(1);
         request.get(requestObj, function (err, resp, body) {
             if (err) {
@@ -211,19 +211,19 @@ exports["urls filtered by user-agent properly proxified"] = {
     'Google bot mobile': function (test) {
         var path = '/path/subpath';
         var uri = 'http://localhost:3000' + path;
-		var requestObj = {
-			uri: uri,
-			headers: {
-        		'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
-    		}
-		};
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+            }
+        };
         test.expect(1);
         request.get(requestObj, function (err, resp, body) {
             if (err) {
                 test.ok(false, 'the request is in error : ' + err);
                 test.done();
             } else {
-                test.equals(body, 'connect server', 'the request should have been answered by the app server');
+                test.equals(body, 'express server', 'the request should have been answered by the app server');
                 test.done();
             }
         });
@@ -231,19 +231,19 @@ exports["urls filtered by user-agent properly proxified"] = {
     'Yandex bot': function (test) {
         var path = '/path/subpath';
         var uri = 'http://localhost:3000' + path;
-		var requestObj = {
-			uri: uri,
-			headers: {
-        		'User-Agent': 'Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)'
-    		}
-		};
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)'
+            }
+        };
         test.expect(1);
         request.get(requestObj, function (err, resp, body) {
             if (err) {
                 test.ok(false, 'the request is in error : ' + err);
                 test.done();
             } else {
-                test.equals(body, 'connect server', 'the request should have been answered by the app server');
+                test.equals(body, 'express server', 'the request should have been answered by the app server');
                 test.done();
             }
         });
@@ -251,19 +251,19 @@ exports["urls filtered by user-agent properly proxified"] = {
     'Mail.RU bot': function (test) {
         var path = '/path/subpath';
         var uri = 'http://localhost:3000' + path;
-		var requestObj = {
-			uri: uri,
-			headers: {
-        		'User-Agent': 'Mozilla/5.0 (compatible; Linux x86_64; Mail.RU_Bot/2.0; +http://go.mail.ru/help/robots)'
-    		}
-		};
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (compatible; Linux x86_64; Mail.RU_Bot/2.0; +http://go.mail.ru/help/robots)'
+            }
+        };
         test.expect(1);
         request.get(requestObj, function (err, resp, body) {
             if (err) {
                 test.ok(false, 'the request is in error : ' + err);
                 test.done();
             } else {
-                test.equals(body, 'connect server', 'the request should have been answered by the app server');
+                test.equals(body, 'express server', 'the request should have been answered by the app server');
                 test.done();
             }
         });
@@ -271,39 +271,39 @@ exports["urls filtered by user-agent properly proxified"] = {
     'Pinterest iOS App': function (test) {
         var path = '/path/subpath';
         var uri = 'http://localhost:3000' + path;
-		var requestObj = {
-			uri: uri,
-			headers: {
-        		'User-Agent': 'Mozilla/5.0 (iPad; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11A465 [Pinterest/iOS]'
-    		}
-		};
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (iPad; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11A465 [Pinterest/iOS]'
+            }
+        };
         test.expect(1);
         request.get(requestObj, function (err, resp, body) {
             if (err) {
                 test.ok(false, 'the request is in error : ' + err);
                 test.done();
             } else {
-                test.equals(body, 'connect server', 'the request should have been answered by the app server');
+                test.equals(body, 'express server', 'the request should have been answered by the app server');
                 test.done();
             }
         });
     },
-	'Flipboard Android App': function (test) {
+    'Flipboard Android App': function (test) {
         var path = '/path/subpath';
         var uri = 'http://localhost:3000' + path;
-		var requestObj = {
-			uri: uri,
-			headers: {
-        		'User-Agent': 'Mozilla/5.0 (Linux; U; Android 4.3; en-us; SAMSUNG-SGH-I337 Build/JSS15J) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30 Flipboard/2.2.3/2094,2.2.3.2094,2014-01-29 16:51, -0500, us'
-    		}
-		};
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Linux; U; Android 4.3; en-us; SAMSUNG-SGH-I337 Build/JSS15J) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30 Flipboard/2.2.3/2094,2.2.3.2094,2014-01-29 16:51, -0500, us'
+            }
+        };
         test.expect(1);
         request.get(requestObj, function (err, resp, body) {
             if (err) {
                 test.ok(false, 'the request is in error : ' + err);
                 test.done();
             } else {
-                test.equals(body, 'connect server', 'the request should have been answered by the app server');
+                test.equals(body, 'express server', 'the request should have been answered by the app server');
                 test.done();
             }
         });
@@ -311,12 +311,12 @@ exports["urls filtered by user-agent properly proxified"] = {
     'Twitter bot': function (test) {
         var path = '/path/subpath';
         var uri = 'http://localhost:3000' + path;
-		var requestObj = {
-			uri: uri,
-			headers: {
-        		'User-Agent': 'Twitterbot/1.0'
-    		}
-		};
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'Twitterbot/1.0'
+            }
+        };
         test.expect(1);
         request.get(requestObj, function (err, resp, body) {
             if (err) {
@@ -331,12 +331,12 @@ exports["urls filtered by user-agent properly proxified"] = {
     'Facebook bot': function (test) {
         var path = '/path/subpath';
         var uri = 'http://localhost:3000' + path;
-		var requestObj = {
-			uri: uri,
-			headers: {
-        		'User-Agent': 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)'
-    		}
-		};
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)'
+            }
+        };
         test.expect(1);
         request.get(requestObj, function (err, resp, body) {
             if (err) {
@@ -351,12 +351,12 @@ exports["urls filtered by user-agent properly proxified"] = {
     'Pinterest bot': function (test) {
         var path = '/path/subpath';
         var uri = 'http://localhost:3000' + path;
-		var requestObj = {
-			uri: uri,
-			headers: {
-        		'User-Agent': 'Pinterest/0.2 (+http://www.pinterest.com/)'
-    		}
-		};
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'Pinterest/0.2 (+http://www.pinterest.com/)'
+            }
+        };
         test.expect(1);
         request.get(requestObj, function (err, resp, body) {
             if (err) {
@@ -371,12 +371,12 @@ exports["urls filtered by user-agent properly proxified"] = {
     'Flipboard bot': function (test) {
         var path = '/path/subpath';
         var uri = 'http://localhost:3000' + path;
-		var requestObj = {
-			uri: uri,
-			headers: {
-        		'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:28.0) Gecko/20100101 Firefox/28.0 (FlipboardProxy/1.1; +http://flipboard.com/browserproxy)'
-    		}
-		};
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:28.0) Gecko/20100101 Firefox/28.0 (FlipboardProxy/1.1; +http://flipboard.com/browserproxy)'
+            }
+        };
         test.expect(1);
         request.get(requestObj, function (err, resp, body) {
             if (err) {
@@ -391,12 +391,12 @@ exports["urls filtered by user-agent properly proxified"] = {
     'Generic bot': function (test) {
         var path = '/path/subpath';
         var uri = 'http://localhost:3000' + path;
-		var requestObj = {
-			uri: uri,
-			headers: {
-        		'User-Agent': 'A string that contain the word bot ....'
-    		}
-		};
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'A string that contain the word bot ....'
+            }
+        };
         test.expect(1);
         request.get(requestObj, function (err, resp, body) {
             if (err) {
@@ -411,12 +411,12 @@ exports["urls filtered by user-agent properly proxified"] = {
     'Generic spider': function (test) {
         var path = '/path/subpath';
         var uri = 'http://localhost:3000' + path;
-		var requestObj = {
-			uri: uri,
-			headers: {
-        		'User-Agent': 'A string that contain the word spider ....'
-    		}
-		};
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'A string that contain the word spider ....'
+            }
+        };
         test.expect(1);
         request.get(requestObj, function (err, resp, body) {
             if (err) {
@@ -431,12 +431,12 @@ exports["urls filtered by user-agent properly proxified"] = {
     'Generic crawler': function (test) {
         var path = '/path/subpath';
         var uri = 'http://localhost:3000' + path;
-		var requestObj = {
-			uri: uri,
-			headers: {
-        		'User-Agent': 'A string that contain the word crawler ....'
-    		}
-		};
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'A string that contain the word crawler ....'
+            }
+        };
         test.expect(1);
         request.get(requestObj, function (err, resp, body) {
             if (err) {
@@ -451,12 +451,12 @@ exports["urls filtered by user-agent properly proxified"] = {
     'Generic archiver': function (test) {
         var path = '/path/subpath';
         var uri = 'http://localhost:3000' + path;
-		var requestObj = {
-			uri: uri,
-			headers: {
-        		'User-Agent': 'A string that contain the word archiver ....'
-    		}
-		};
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'A string that contain the word archiver ....'
+            }
+        };
         test.expect(1);
         request.get(requestObj, function (err, resp, body) {
             if (err) {
@@ -468,122 +468,122 @@ exports["urls filtered by user-agent properly proxified"] = {
             }
         });
     },
-	'Static resources with 2 letters extension': function (test) {
+    'Static resources with 2 letters extension': function (test) {
         var path = '/path/subpath.js';
         var uri = 'http://localhost:3000' + path;
-		var requestObj = {
-			uri: uri,
-			headers: {
-        		'User-Agent': 'Any bot that get get filtered by its user-agent.'
-    		}
-		};
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'Any bot that get get filtered by its user-agent.'
+            }
+        };
         test.expect(1);
         request.get(requestObj, function (err, resp, body) {
             if (err) {
                 test.ok(false, 'the request is in error : ' + err);
                 test.done();
             } else {
-                test.equals(body, 'connect server', 'the request should have been answered by the app server');
+                test.equals(body, 'express server', 'the request should have been answered by the app server');
                 test.done();
             }
         });
     },
-	'Static resources with 3 letters extension': function (test) {
+    'Static resources with 3 letters extension': function (test) {
         var path = '/path/subpath.png';
         var uri = 'http://localhost:3000' + path;
-		var requestObj = {
-			uri: uri,
-			headers: {
-        		'User-Agent': 'Any bot that get get filtered by its user-agent.'
-    		}
-		};
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'Any bot that get get filtered by its user-agent.'
+            }
+        };
         test.expect(1);
         request.get(requestObj, function (err, resp, body) {
             if (err) {
                 test.ok(false, 'the request is in error : ' + err);
                 test.done();
             } else {
-                test.equals(body, 'connect server', 'the request should have been answered by the app server');
+                test.equals(body, 'express server', 'the request should have been answered by the app server');
                 test.done();
             }
         });
     },
-	'Static resources with 4 letters extension': function (test) {
+    'Static resources with 4 letters extension': function (test) {
         var path = '/path/subpath.html';
         var uri = 'http://localhost:3000' + path;
-		var requestObj = {
-			uri: uri,
-			headers: {
-        		'User-Agent': 'Any bot that get get filtered by its user-agent.'
-    		}
-		};
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'Any bot that get get filtered by its user-agent.'
+            }
+        };
         test.expect(1);
         request.get(requestObj, function (err, resp, body) {
             if (err) {
                 test.ok(false, 'the request is in error : ' + err);
                 test.done();
             } else {
-                test.equals(body, 'connect server', 'the request should have been answered by the app server');
+                test.equals(body, 'express server', 'the request should have been answered by the app server');
                 test.done();
             }
         });
     },
-	'Static resources with 2 letters extension and a query parameter': function (test) {
+    'Static resources with 2 letters extension and a query parameter': function (test) {
         var path = '/path/subpath.js?query=something';
         var uri = 'http://localhost:3000' + path;
-		var requestObj = {
-			uri: uri,
-			headers: {
-        		'User-Agent': 'Any bot that get get filtered by its user-agent.'
-    		}
-		};
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'Any bot that get get filtered by its user-agent.'
+            }
+        };
         test.expect(1);
         request.get(requestObj, function (err, resp, body) {
             if (err) {
                 test.ok(false, 'the request is in error : ' + err);
                 test.done();
             } else {
-                test.equals(body, 'connect server', 'the request should have been answered by the app server');
+                test.equals(body, 'express server', 'the request should have been answered by the app server');
                 test.done();
             }
         });
     },
-	'Static resources with 3 letters extension and a query parameter': function (test) {
+    'Static resources with 3 letters extension and a query parameter': function (test) {
         var path = '/path/subpath.png?query=something';
         var uri = 'http://localhost:3000' + path;
-		var requestObj = {
-			uri: uri,
-			headers: {
-        		'User-Agent': 'Any bot that get get filtered by its user-agent.'
-    		}
-		};
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'Any bot that get get filtered by its user-agent.'
+            }
+        };
         test.expect(1);
         request.get(requestObj, function (err, resp, body) {
             if (err) {
                 test.ok(false, 'the request is in error : ' + err);
                 test.done();
             } else {
-                test.equals(body, 'connect server', 'the request should have been answered by the app server');
+                test.equals(body, 'express server', 'the request should have been answered by the app server');
                 test.done();
             }
         });
     },
-	'Static resources with 4 letters extension and a query parameter': function (test) {
+    'Static resources with 4 letters extension and a query parameter': function (test) {
         var path = '/path/subpath.html?query=something';
         var uri = 'http://localhost:3000' + path;
-		var requestObj = {
-			uri: uri,
-			headers: {
-        		'User-Agent': 'Any bot that get get filtered by its user-agent.'
-    		}
-		};
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'Any bot that get get filtered by its user-agent.'
+            }
+        };
         test.expect(1);
         request.get(requestObj, function (err, resp, body) {
             if (err) {
                 test.ok(false, 'the request is in error : ' + err);
                 test.done();
             } else {
-                test.equals(body, 'connect server', 'the request should have been answered by the app server');
+                test.equals(body, 'express server', 'the request should have been answered by the app server');
                 test.done();
             }
         });
@@ -593,28 +593,28 @@ exports["urls filtered by user-agent properly proxified"] = {
 
 exports['header properly sent'] = {
     setUp: function (ready) {
-        var s4aAPI = connect();
+        var s4aAPI = express();
         s4aAPI.use(function (req, res) {
-            var path = url.parse(req.url).path
+            var path = url.parse(req.url).path;
             res.end(JSON.stringify(req.headers));
         });
         this.apiServer = s4aAPI.listen(3001);
 
-        var app = connect();
+        var app = express();
         app.use(connect_s4a(s4aToken, {
             apiEndPoint: 'http://localhost:3001/'
         }));
         app.use(function (req, res) {
-            res.end('connect server');
+            res.end('express server');
         });
-        this.connectServer = app.listen(3000);
+        this.expressServer = app.listen(3000);
 
         ready();
     },
     tearDown: function (done) {
         var self = this;
         self.apiServer.close(function () {
-            self.connectServer.close(function () {
+            self.expressServer.close(function () {
                 done();
             });
         });
@@ -683,7 +683,7 @@ exports['header properly sent'] = {
 
 exports['not follow redirect'] = function (test) {
     var setUp = function (ready) {
-        var s4aAPI = connect();
+        var s4aAPI = express();
         s4aAPI.use(function (req, res) {
             res.statusCode = 302;
             res.setHeader('location', 'http://example.com/');
@@ -692,21 +692,21 @@ exports['not follow redirect'] = function (test) {
         });
         this.apiServer = s4aAPI.listen(3001);
 
-        var app = connect();
+        var app = express();
         app.use(connect_s4a(s4aToken, {
             apiEndPoint: 'http://localhost:3001/'
         }));
         app.use(function (req, res) {
-            res.end('connect server');
+            res.end('express server');
         });
-        this.connectServer = app.listen(3000);
+        this.expressServer = app.listen(3000);
 
         ready();
     };
     var tearDown = function (done) {
         var self = this;
         self.apiServer.close(function () {
-            self.connectServer.close(function () {
+            self.expressServer.close(function () {
                 done();
             });
         });
