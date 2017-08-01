@@ -47,8 +47,6 @@ With express 4.x:
     });
     app.listen(3000);
 
-Connect-s4a take only one parameter, the token of the site on SE04Ajax.
-
 With Meteor:
 
     import { WebApp } from 'meteor/webapp';
@@ -59,6 +57,8 @@ With Meteor:
     Meteor.startup(() => {
         WebApp.connectHandlers.use(connect_s4a(token));    
     });
+
+Connect-s4a take only one parameter, the token of the site on SE04Ajax.
 
 Installation
 ------------
