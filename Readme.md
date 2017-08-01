@@ -49,6 +49,16 @@ With express 4.x:
 
 Connect-s4a take only one parameter, the token of the site on SE04Ajax.
 
+With Meteor:
+
+    import { WebApp } from 'meteor/webapp';
+    import connect_s4a from 'connect-s4a';
+    
+    const token = "your site token on SEO4Ajax";
+    
+    Meteor.startup(() => {
+        WebApp.connectHandlers.use(connect_s4a(token));    
+    });
 
 Installation
 ------------
