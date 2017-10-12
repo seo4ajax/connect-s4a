@@ -1,7 +1,7 @@
 Connect-s4a
 =============
 
-[SEO4Ajax](https://www.seo4ajax.com) is a service that let you get full visibility on search engines, social networks and display advertising of any AJAX website based on Angular, React, Backbone, Ember, jQuery etc.
+[SEO4Ajax](https://www.seo4ajax.com) is a service that allows AJAX websites (e.g. based on Angular, React, Backbone, Ember, jQuery etc.) to be indexable by search engines and social networks.
 
 Connect-s4a is a middleware for Connect framework. It provides an easy way to
 proxify GET requests from non-js clients (e.g. crawlers) to [SEO4Ajax](https://www.seo4ajax.com).
@@ -9,7 +9,7 @@ proxify GET requests from non-js clients (e.g. crawlers) to [SEO4Ajax](https://w
 Usage
 -----
 
-This middleware must be on the first called.
+The middleware must required before connect or express.
 
 With connect :
 
@@ -58,7 +58,7 @@ With Meteor:
         WebApp.connectHandlers.use(connect_s4a(token));    
     });
 
-Connect-s4a take only one parameter, the token of the site on SE04Ajax.
+Connect-s4a takes only one parameter, the token of the site on SE04Ajax.
 
 Installation
 ------------
