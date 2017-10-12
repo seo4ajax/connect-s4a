@@ -16,7 +16,7 @@
     "homepage": "https://www.seo4ajax.com",
     "bugs": "https://github.com/seo4ajax/connect-s4a/issues",
     "dependencies": {
-        "request": "2.27.x"
+        "request": "2.83.x"
     },
     "main": "./index.js",
     "engines": {
