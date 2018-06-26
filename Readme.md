@@ -58,7 +58,10 @@ With Meteor:
         WebApp.connectHandlers.use(connect_s4a(token));    
     });
 
-Connect-s4a takes only one parameter, the token of the site on SE04Ajax.
+The connect_s4a function takes one mandatory parameter, the token of the site on SE04Ajax. The second parameter is optional, it is an object with these 2 properties:
+
+- apiEndPoint: URL to the API of SEO4Ajax ("http://api.seo4ajax.com/" by default)
+- dynamicRendering: Boolean indicating if you want to support Dynamic Rendering (false by default)
 
 Installation
 ------------
