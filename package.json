@@ -1,18 +1,25 @@
 {
     "name": "connect-s4a",
-    "version": "0.0.10",
+    "version": "0.1.0",
     "author": "SEO4Ajax <support@seo4ajax.com>",
     "contributors": [
         {
             "name": "Gildas Lormeau",
             "email": "gildas@seo4ajax.com"
-        }, {
+        },
+        {
             "name": "Yannick Le Saout",
             "email": "yannick@seo4ajax.com"
         }
     ],
     "description": "Connect/Express middleware for SEO4Ajax to serve SEO friendly HTML snapshots.",
-    "keywords": ["AngularJS","Backbone.js","Ember","seo","Ajax"],
+    "keywords": [
+        "AngularJS",
+        "Backbone.js",
+        "Ember",
+        "seo",
+        "Ajax"
+    ],
     "homepage": "https://www.seo4ajax.com",
     "bugs": "https://github.com/seo4ajax/connect-s4a/issues",
     "dependencies": {
