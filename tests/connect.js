@@ -183,7 +183,7 @@ exports["urls filtered by user-agent properly proxified"] = {
                 test.ok(false, 'the request is in error : ' + err);
                 test.done();
             } else {
-                test.equals(body, 'connect server', 'the request should have been answered by the app server');
+                test.equals(body, '/' + s4aToken + path, 'the request should have been answered by the s4a api server');
                 test.done();
             }
         });
@@ -223,7 +223,7 @@ exports["urls filtered by user-agent properly proxified"] = {
                 test.ok(false, 'the request is in error : ' + err);
                 test.done();
             } else {
-                test.equals(body, 'connect server', 'the request should have been answered by the app server');
+                test.equals(body, '/' + s4aToken + path, 'the request should have been answered by the s4a api server');
                 test.done();
             }
         });
@@ -243,7 +243,7 @@ exports["urls filtered by user-agent properly proxified"] = {
                 test.ok(false, 'the request is in error : ' + err);
                 test.done();
             } else {
-                test.equals(body, 'connect server', 'the request should have been answered by the app server');
+                test.equals(body, '/' + s4aToken + path, 'the request should have been answered by the s4a api server');
                 test.done();
             }
         });
@@ -263,7 +263,7 @@ exports["urls filtered by user-agent properly proxified"] = {
                 test.ok(false, 'the request is in error : ' + err);
                 test.done();
             } else {
-                test.equals(body, 'connect server', 'the request should have been answered by the app server');
+                test.equals(body, '/' + s4aToken + path, 'the request should have been answered by the s4a api server');
                 test.done();
             }
         });
@@ -283,7 +283,7 @@ exports["urls filtered by user-agent properly proxified"] = {
                 test.ok(false, 'the request is in error : ' + err);
                 test.done();
             } else {
-                test.equals(body, 'connect server', 'the request should have been answered by the app server');
+                test.equals(body, '/' + s4aToken + path, 'the request should have been answered by the s4a api server');
                 test.done();
             }
         });
@@ -303,7 +303,7 @@ exports["urls filtered by user-agent properly proxified"] = {
                 test.ok(false, 'the request is in error : ' + err);
                 test.done();
             } else {
-                test.equals(body, 'connect server', 'the request should have been answered by the app server');
+                test.equals(body, '/' + s4aToken + path, 'the request should have been answered by the s4a api server');
                 test.done();
             }
         });
