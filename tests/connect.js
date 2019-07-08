@@ -8,7 +8,7 @@ var url = require('url');
 
 
 
-exports["_escaped_fragment_ urls properly proxified"] = {
+exports["_escaped_fragment_ urls properly proxied"] = {
     setUp: function (ready) {
         var s4aAPI = connect();
         s4aAPI.use(function (req, res) {
@@ -138,7 +138,7 @@ exports["_escaped_fragment_ urls properly proxified"] = {
     }
 };
 
-exports["urls filtered by user-agent properly proxified"] = {
+exports["urls filtered by user-agent properly proxied"] = {
     setUp: function (ready) {
         var s4aAPI = connect();
         s4aAPI.use(function (req, res) {
