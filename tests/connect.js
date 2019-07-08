@@ -388,6 +388,66 @@ exports["urls filtered by user-agent properly proxified"] = {
             }
         });
     },
+    'Mediapartners bot': function (test) {
+        var path = '/path/subpath';
+        var uri = 'http://localhost:3000' + path;
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'Mediapartners-Google'
+            }
+        };
+        test.expect(1);
+        request.get(requestObj, function (err, resp, body) {
+            if (err) {
+                test.ok(false, 'the request is in error : ' + err);
+                test.done();
+            } else {
+                test.equals(body, '/' + s4aToken + path, 'the request should have been answered by the s4a api server');
+                test.done();
+            }
+        });
+    },
+    'W3C Validator bot': function (test) {
+        var path = '/path/subpath';
+        var uri = 'http://localhost:3000' + path;
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'W3C_Validator/1.591'
+            }
+        };
+        test.expect(1);
+        request.get(requestObj, function (err, resp, body) {
+            if (err) {
+                test.ok(false, 'the request is in error : ' + err);
+                test.done();
+            } else {
+                test.equals(body, '/' + s4aToken + path, 'the request should have been answered by the s4a api server');
+                test.done();
+            }
+        });
+    },
+    'Google Lighthouse bot': function (test) {
+        var path = '/path/subpath';
+        var uri = 'http://localhost:3000' + path;
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36(KHTML, like Gecko) Chrome/61.0.3116.0 Safari/537.36 Chrome-Lighthouse'
+            }
+        };
+        test.expect(1);
+        request.get(requestObj, function (err, resp, body) {
+            if (err) {
+                test.ok(false, 'the request is in error : ' + err);
+                test.done();
+            } else {
+                test.equals(body, '/' + s4aToken + path, 'the request should have been answered by the s4a api server');
+                test.done();
+            }
+        });
+    },
     'Generic bot': function (test) {
         var path = '/path/subpath';
         var uri = 'http://localhost:3000' + path;
