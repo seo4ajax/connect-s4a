@@ -568,6 +568,46 @@ exports["urls filtered by user-agent properly proxied"] = {
             }
         });
     },
+    'Static resource index.htm': function (test) {
+        var path = '/index.html';
+        var uri = 'http://localhost:3000' + path;
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'Any bot that get get filtered by its user-agent.'
+            }
+        };
+        test.expect(1);
+        request.get(requestObj, function (err, resp, body) {
+            if (err) {
+                test.ok(false, 'the request is in error : ' + err);
+                test.done();
+            } else {
+                test.equals(body, '/' + s4aToken + path, 'the request should have been answered by the s4a api server');
+                test.done();
+            }
+        });
+    },
+    'Static resource index.html': function (test) {
+        var path = '/index.html';
+        var uri = 'http://localhost:3000' + path;
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'Any bot that get get filtered by its user-agent.'
+            }
+        };
+        test.expect(1);
+        request.get(requestObj, function (err, resp, body) {
+            if (err) {
+                test.ok(false, 'the request is in error : ' + err);
+                test.done();
+            } else {
+                test.equals(body, '/' + s4aToken + path, 'the request should have been answered by the s4a api server');
+                test.done();
+            }
+        });
+    },
     'Static resources with 4 letters extension': function (test) {
         var path = '/path/subpath.html';
         var uri = 'http://localhost:3000' + path;
