@@ -71,8 +71,7 @@ Via npm :
 How it works
 ------------
 
-This module checks the presence of the _escaped_fragment_ query parameter or the presence of a user-agent string identifying bots that do not support the Ajax Crawling Specification.
-If the _escaped_fragment_ is present or a bot is detected, it requests the snapshot on SEO4Ajax and responds to the initial request with the concerned snapshot.
+This module checks the presence of a user-agent string identifying bots. If a bot is detected, the module requests the snapshot from api.seo4ajax.com and returns it. Otherwise the module ignores the request.
 
 
 Requirements
