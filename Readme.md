@@ -1,9 +1,9 @@
 Connect-s4a
 =============
 
-[SEO4Ajax](https://www.seo4ajax.com) is a service that allows AJAX websites (e.g. based on Angular, React, Backbone, Ember, jQuery etc.) to be indexable by search engines and social networks.
+[SEO4Ajax](https://www.seo4ajax.com) is a service that allows AJAX websites (e.g. based on Angular, React, Vue.js, Svelte, Backbone, Ember, jQuery etc.) to be indexable by search engines and social networks.
 
-Connect-s4a is a middleware for the framework [Connect](https://github.com/senchalabs/connect). It provides an easy way to proxy bot requests to [SEO4Ajax](https://www.seo4ajax.com).
+Connect-s4a is a middleware for the framework [Connect](https://github.com/senchalabs/connect). It provides an easy way to proxy bot requests to [SEO4Ajax](https://www.seo4ajax.com) in [NodeJS](https://nodejs.org/) applications.
 
 Usage
 -----
