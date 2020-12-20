@@ -1,5 +1,6 @@
 var connect_s4a = require('../lib/connect-s4a.js');
 var s4aToken = 'token';
+var rootPath = '/rootPath';
 var express = require('express');
 var request = require('request');
 var url = require('url');
@@ -856,3 +857,56 @@ exports['throws error if no token'] = function (test) {
     });
     test.done();
 };
+
+exports['rootPath option handling'] = {
+    setUp: function (ready) {
+        var s4aAPI = express();
+        s4aAPI.use(function (req, res) {
+            var path = url.parse(req.url).path;
+            res.setHeader('Server', 'api');
+            res.end(path);
+        });
+        this.apiServer = s4aAPI.listen(3001);
+
+        var app = express();
+        app.use(connect_s4a(s4aToken, {
+            apiEndPoint: 'http://localhost:3001/',
+            rootPath: rootPath
+        }));
+        app.use(function (req, res) {
+            res.setHeader('Server', 'app');
+            res.end('express server');
+        });
+        this.expressServer = app.listen(3000);
+
+        ready();
+    },
+    tearDown: function (done) {
+        var self = this;
+        self.apiServer.close(function () {
+            self.expressServer.close(function () {
+                done();
+            });
+        });
+    },
+    'rootPath value present in the proxied path': function (test) {
+        var path = '/path/subpath';
+        var uri = 'http://localhost:3000' + path;
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+            }
+        };
+        test.expect(1);
+        request.get(requestObj, function (err, resp, body) {
+            if (err) {
+                test.ok(false, 'the request is in error : ' + err);
+                test.done();
+            } else {
+                test.equals(body, '/' + s4aToken + rootPath + path, 'the rootPath value should have been present');
+                test.done();
+            }
+        });
+    }
+}
