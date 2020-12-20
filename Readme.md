@@ -1,10 +1,9 @@
 Connect-s4a
 =============
 
-[SEO4Ajax](https://www.seo4ajax.com) is a service that allows AJAX websites (e.g. based on Angular, React, Backbone, Ember, jQuery etc.) to be indexable by search engines and social networks.
+[SEO4Ajax](https://www.seo4ajax.com) is a service that allows AJAX websites (e.g. based on Angular, React, Vue.js, Svelte, Backbone, Ember, jQuery etc.) to be indexable by search engines and social networks.
 
-Connect-s4a is a middleware for Connect framework. It provides an easy way to
-proxy GET requests from non-js clients (e.g. crawlers) to [SEO4Ajax](https://www.seo4ajax.com).
+Connect-s4a is a middleware for the framework [Connect](https://github.com/senchalabs/connect). It provides an easy way to proxy bot requests to [SEO4Ajax](https://www.seo4ajax.com) in [NodeJS](https://nodejs.org/) applications.
 
 Usage
 -----
@@ -58,9 +57,9 @@ With Meteor:
         WebApp.connectHandlers.use(connect_s4a(token));    
     });
 
-The connect_s4a function takes one mandatory parameter, the token of the site on SE04Ajax. The second parameter is optional, it is an object with these 2 properties:
+The `connect_s4a` function requrires one mandatory parameter: the token of the site on SE04Ajax. The second parameter is optional, it is an object with the following property:
 
-- apiEndPoint: URL to the API of SEO4Ajax ("http://api.seo4ajax.com/" by default)
+- `apiEndPoint`: URL to the API of SEO4Ajax (`"http://api.seo4ajax.com/"` by default)
 
 Installation
 ------------
@@ -71,8 +70,7 @@ Via npm :
 How it works
 ------------
 
-This module checks the presence of the _escaped_fragment_ query parameter or the presence of a user-agent string identifying bots that do not support the Ajax Crawling Specification.
-If the _escaped_fragment_ is present or a bot is detected, it requests the snapshot on SEO4Ajax and responds to the initial request with the concerned snapshot.
+This module checks the presence of a user-agent string identifying bots. If a bot is detected, the module requests the snapshot from api.seo4ajax.com and returns it. Otherwise the module ignores the request.
 
 
 Requirements
