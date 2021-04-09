@@ -60,6 +60,10 @@ With Meteor:
 The `connect_s4a` function requrires one mandatory parameter: the token of the site on SE04Ajax. The second parameter is optional, it is an object with the following property:
 
 - `apiEndPoint`: URL to the API of SEO4Ajax (`"http://api.seo4ajax.com/"` by default)
+- `rootPath`: a path added after the token when calling the API of SEO4Ajax (`""` by default)
+- `userAgentTest`: a regular expression used for testing bots (`/(bot|spider|pinterest|crawler|archiver|flipboard|mediapartners|facebookexternalhit|quora|whatsapp|outbrain|
+yahoo! slurp|embedly|developers.google.com\/+\/web\/snippet|vkshare|w3c_validator|tumblr|skypeuripreview|nuzzel|
+qwantify|bitrix link preview|XING-contenttabreceiver|Chrome-Lighthouse|mail\.ru)/gi` by default)
 
 Installation
 ------------
