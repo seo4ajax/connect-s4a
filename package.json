@@ -1,6 +1,6 @@
 {
     "name": "connect-s4a",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "author": "SEO4Ajax <support@seo4ajax.com>",
     "contributors": [
         {
@@ -23,7 +23,7 @@
     "homepage": "https://www.seo4ajax.com",
     "bugs": "https://github.com/seo4ajax/connect-s4a/issues",
     "dependencies": {
-        "request": "2.83.x"
+        "request": "2.88.x"
     },
     "main": "./index.js",
     "engines": {
