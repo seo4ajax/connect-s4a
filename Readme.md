@@ -61,7 +61,8 @@ The `connect_s4a` function requrires one mandatory parameter: the token of the s
 
 - `apiEndPoint`: URL to the API of SEO4Ajax (`"http://api.seo4ajax.com/"` by default)
 - `rootPath`: a path added after the token when calling the API of SEO4Ajax (`""` by default)
-- `userAgentTest`: a regular expression used to test the user-agent value of bots (`/(bot|spider|pinterest|crawler|archiver|flipboard|mediapartners|facebookexternalhit|quora|whatsapp|outbrain|yahoo! slurp|embedly|developers.google.com\/+\/web/snippet|vkshare|w3c_validator|tumblr|skypeuripreview|nuzzel|qwantify|bitrix link preview|XING-contenttabreceiver|Chrome-Lighthouse|mail\.ru)/gi` by default)
+- `includeUserAgents`: a regular expression used to test the user-agent value of bots (`/(bot|spider|pinterest|crawler|archiver|flipboard|mediapartners|facebookexternalhit|quora|whatsapp|outbrain|yahoo! slurp|embedly|developers.google.com\/+\/web/snippet|vkshare|w3c_validator|tumblr|skypeuripreview|nuzzel|qwantify|bitrix link preview|XING-contenttabreceiver|Chrome-Lighthouse|mail\.ru)/gi` by default),
+- `ignoreUserAgents`: a regular expression used to ignore the user-agent value of bots
 
 Installation
 ------------
