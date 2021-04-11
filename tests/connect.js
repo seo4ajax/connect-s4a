@@ -693,227 +693,227 @@ exports["urls filtered by user-agent properly proxied"] = {
 };
 
 exports[
-  "urls filtered by user-agent properly proxied only for user-agents from options"
+    "urls filtered by user-agent properly proxied only for user-agents from options"
 ] = {
-  setUp: function (ready) {
-    var s4aAPI = connect();
-    s4aAPI.use(function (req, res) {
-      var path = url.parse(req.url).path;
-      res.setHeader("Server", "api");
-      res.end(path);
-    });
-    this.apiServer = s4aAPI.listen(3001);
+    setUp: function (ready) {
+        var s4aAPI = connect();
+        s4aAPI.use(function (req, res) {
+            var path = url.parse(req.url).path;
+            res.setHeader("Server", "api");
+            res.end(path);
+        });
+        this.apiServer = s4aAPI.listen(3001);
 
-    var app = connect();
-    app.use(
-      connect_s4a(s4aToken, {
-        apiEndPoint: 'http://localhost:3001/',
-        includeUserAgents: /(mail\.ru)/gi,
-      })
-    );
-    app.use(function (req, res) {
-      res.setHeader('Server', 'app');
-      res.end('connect server');
-    });
-    this.connectServer = app.listen(3000);
+        var app = connect();
+        app.use(
+            connect_s4a(s4aToken, {
+                apiEndPoint: 'http://localhost:3001/',
+                includeUserAgents: /(mail\.ru)/gi,
+            })
+        );
+        app.use(function (req, res) {
+            res.setHeader('Server', 'app');
+            res.end('connect server');
+        });
+        this.connectServer = app.listen(3000);
 
-    ready();
-  },
-  tearDown: function (done) {
-    var self = this;
-    self.apiServer.close(function () {
-      self.connectServer.close(function () {
-        done();
-      });
-    });
-  },
-  'Google bot': function (test) {
-    var path = '/path/subpath';
-    var uri = 'http://localhost:3000' + path;
-    var requestObj = {
-      uri: uri,
-      headers: {
-        'User-Agent':
-          'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
-      },
-    };
-    test.expect(1);
-    request.get(requestObj, function (err, resp, body) {
-      if (err) {
-        test.ok(false, 'the request is in error : ' + err);
-        test.done();
-      } else {
-        test.equals(
-          body,
-          'connect server',
-          'the request should have been answered by the original server'
-        );
-        test.done();
-      }
-    });
-  },
-  'Google bot mobile': function (test) {
-    var path = '/path/subpath';
-    var uri = 'http://localhost:3000' + path;
-    var requestObj = {
-      uri: uri,
-      headers: {
-        'User-Agent':
-          'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
-      },
-    };
-    test.expect(1);
-    request.get(requestObj, function (err, resp, body) {
-      if (err) {
-        test.ok(false, 'the request is in error : ' + err);
-        test.done();
-      } else {
-        test.equals(
-          body,
-          'connect server',
-          'the request should have been answered by the original server'
-        );
-        test.done();
-      }
-    });
-  },
-  'Mail.RU bot': function (test) {
-    var path = '/path/subpath';
-    var uri = 'http://localhost:3000' + path;
-    var requestObj = {
-      uri: uri,
-      headers: {
-        'User-Agent':
-          'Mozilla/5.0 (compatible; Linux x86_64; Mail.RU_Bot/2.0; +http://go.mail.ru/help/robots)',
-      },
-    };
-    test.expect(1);
-    request.get(requestObj, function (err, resp, body) {
-      if (err) {
-        test.ok(false, 'the request is in error : ' + err);
-        test.done();
-      } else {
-        test.equals(
-          body,
-          '/' + s4aToken + path,
-          'the request should have been answered by the s4a api server'
-        );
-        test.done();
-      }
-    });
-  },
+        ready();
+    },
+    tearDown: function (done) {
+        var self = this;
+        self.apiServer.close(function () {
+            self.connectServer.close(function () {
+                done();
+            });
+        });
+    },
+    'Google bot': function (test) {
+        var path = '/path/subpath';
+        var uri = 'http://localhost:3000' + path;
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent':
+                    'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+            },
+        };
+        test.expect(1);
+        request.get(requestObj, function (err, resp, body) {
+            if (err) {
+                test.ok(false, 'the request is in error : ' + err);
+                test.done();
+            } else {
+                test.equals(
+                    body,
+                    'connect server',
+                    'the request should have been answered by the original server'
+                );
+                test.done();
+            }
+        });
+    },
+    'Google bot mobile': function (test) {
+        var path = '/path/subpath';
+        var uri = 'http://localhost:3000' + path;
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent':
+                    'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+            },
+        };
+        test.expect(1);
+        request.get(requestObj, function (err, resp, body) {
+            if (err) {
+                test.ok(false, 'the request is in error : ' + err);
+                test.done();
+            } else {
+                test.equals(
+                    body,
+                    'connect server',
+                    'the request should have been answered by the original server'
+                );
+                test.done();
+            }
+        });
+    },
+    'Mail.RU bot': function (test) {
+        var path = '/path/subpath';
+        var uri = 'http://localhost:3000' + path;
+        var requestObj = {
+            uri: uri,
+            headers: {
+                'User-Agent':
+                    'Mozilla/5.0 (compatible; Linux x86_64; Mail.RU_Bot/2.0; +http://go.mail.ru/help/robots)',
+            },
+        };
+        test.expect(1);
+        request.get(requestObj, function (err, resp, body) {
+            if (err) {
+                test.ok(false, 'the request is in error : ' + err);
+                test.done();
+            } else {
+                test.equals(
+                    body,
+                    '/' + s4aToken + path,
+                    'the request should have been answered by the s4a api server'
+                );
+                test.done();
+            }
+        });
+    },
 };
 
 exports[
-  "user-agents properly filtered based on options"
+    "user-agents properly filtered based on options"
 ] = {
-  setUp: function (ready) {
-    var s4aAPI = connect();
-    s4aAPI.use(function (req, res) {
-      var path = url.parse(req.url).path;
-      res.setHeader("Server", "api");
-      res.end(path);
-    });
-    this.apiServer = s4aAPI.listen(3001);
+    setUp: function (ready) {
+        var s4aAPI = connect();
+        s4aAPI.use(function (req, res) {
+            var path = url.parse(req.url).path;
+            res.setHeader("Server", "api");
+            res.end(path);
+        });
+        this.apiServer = s4aAPI.listen(3001);
 
-    var app = connect();
-    app.use(
-      connect_s4a(s4aToken, {
-        apiEndPoint: "http://localhost:3001/",
-        ignoreUserAgents: /(mail\.ru)/gi,
-      })
-    );
-    app.use(function (req, res) {
-      res.setHeader("Server", "app");
-      res.end("connect server");
-    });
-    this.connectServer = app.listen(3000);
+        var app = connect();
+        app.use(
+            connect_s4a(s4aToken, {
+                apiEndPoint: "http://localhost:3001/",
+                ignoreUserAgents: /(mail\.ru)/gi,
+            })
+        );
+        app.use(function (req, res) {
+            res.setHeader("Server", "app");
+            res.end("connect server");
+        });
+        this.connectServer = app.listen(3000);
 
-    ready();
-  },
-  tearDown: function (done) {
-    var self = this;
-    self.apiServer.close(function () {
-      self.connectServer.close(function () {
-        done();
-      });
-    });
-  },
-  "Google bot": function (test) {
-    var path = "/path/subpath";
-    var uri = "http://localhost:3000" + path;
-    var requestObj = {
-      uri: uri,
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
-      },
-    };
-    test.expect(1);
-    request.get(requestObj, function (err, resp, body) {
-      if (err) {
-        test.ok(false, "the request is in error : " + err);
-        test.done();
-      } else {
-        test.equals(
-          body,
-          "/" + s4aToken + path,
-          "the request should have been answered by the original server"
-        );
-        test.done();
-      }
-    });
-  },
-  "Google bot mobile": function (test) {
-    var path = "/path/subpath";
-    var uri = "http://localhost:3000" + path;
-    var requestObj = {
-      uri: uri,
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
-      },
-    };
-    test.expect(1);
-    request.get(requestObj, function (err, resp, body) {
-      if (err) {
-        test.ok(false, "the request is in error : " + err);
-        test.done();
-      } else {
-        test.equals(
-          body,
-          "/" + s4aToken + path,
-          "the request should have been answered by the original server"
-        );
-        test.done();
-      }
-    });
-  },
-  "Mail.RU bot": function (test) {
-    var path = "/path/subpath";
-    var uri = "http://localhost:3000" + path;
-    var requestObj = {
-      uri: uri,
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (compatible; Linux x86_64; Mail.RU_Bot/2.0; +http://go.mail.ru/help/robots)",
-      },
-    };
-    test.expect(1);
-    request.get(requestObj, function (err, resp, body) {
-      if (err) {
-        test.ok(false, "the request is in error : " + err);
-        test.done();
-      } else {
-        test.equals(
-          body,
-          "connect server",
-          "the request should have been answered by the s4a api server"
-        );
-        test.done();
-      }
-    });
-  },
+        ready();
+    },
+    tearDown: function (done) {
+        var self = this;
+        self.apiServer.close(function () {
+            self.connectServer.close(function () {
+                done();
+            });
+        });
+    },
+    "Google bot": function (test) {
+        var path = "/path/subpath";
+        var uri = "http://localhost:3000" + path;
+        var requestObj = {
+            uri: uri,
+            headers: {
+                "User-Agent":
+                    "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+            },
+        };
+        test.expect(1);
+        request.get(requestObj, function (err, resp, body) {
+            if (err) {
+                test.ok(false, "the request is in error : " + err);
+                test.done();
+            } else {
+                test.equals(
+                    body,
+                    "/" + s4aToken + path,
+                    "the request should have been answered by the original server"
+                );
+                test.done();
+            }
+        });
+    },
+    "Google bot mobile": function (test) {
+        var path = "/path/subpath";
+        var uri = "http://localhost:3000" + path;
+        var requestObj = {
+            uri: uri,
+            headers: {
+                "User-Agent":
+                    "Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+            },
+        };
+        test.expect(1);
+        request.get(requestObj, function (err, resp, body) {
+            if (err) {
+                test.ok(false, "the request is in error : " + err);
+                test.done();
+            } else {
+                test.equals(
+                    body,
+                    "/" + s4aToken + path,
+                    "the request should have been answered by the original server"
+                );
+                test.done();
+            }
+        });
+    },
+    "Mail.RU bot": function (test) {
+        var path = "/path/subpath";
+        var uri = "http://localhost:3000" + path;
+        var requestObj = {
+            uri: uri,
+            headers: {
+                "User-Agent":
+                    "Mozilla/5.0 (compatible; Linux x86_64; Mail.RU_Bot/2.0; +http://go.mail.ru/help/robots)",
+            },
+        };
+        test.expect(1);
+        request.get(requestObj, function (err, resp, body) {
+            if (err) {
+                test.ok(false, "the request is in error : " + err);
+                test.done();
+            } else {
+                test.equals(
+                    body,
+                    "connect server",
+                    "the request should have been answered by the s4a api server"
+                );
+                test.done();
+            }
+        });
+    },
 };
 
 
