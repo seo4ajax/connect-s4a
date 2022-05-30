@@ -7,11 +7,11 @@ be indexable by search engines and social networks.
 Connect-s4a is a middleware for the framework
 [Connect](https://github.com/senchalabs/connect). It provides an easy way to
 proxy bot requests to [SEO4Ajax](https://www.seo4ajax.com) in
-[NodeJS](https://nodejs.org/) applications.
+[Node.js](https://nodejs.org/) applications.
 
 ## Usage
 
-The middleware must required before connect or express.
+The middleware must be imported before connect or express.
 
 With connect :
 
