@@ -60,7 +60,7 @@ With Meteor:
         WebApp.connectHandlers.use(connect_s4a(token));    
     });
 
-The `connect_s4a` function requrires one mandatory parameter: the token of the
+The `connect_s4a` function requires one mandatory parameter: the token of the
 site on SEO4Ajax. The second parameter is optional, it is an object with the
 following property:
 
